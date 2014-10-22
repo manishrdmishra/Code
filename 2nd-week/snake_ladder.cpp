@@ -3,27 +3,30 @@
 #include<vector>
 #include<set>
 #include<utility>
+
+typedef std::vector<std::pair<int,int>> vii;
+typedef std::vector<vii> vvii;
 const int MAX = 10000; 
 class SnakeLadder{ 
     public:
         SnakeLadder(int nodes, int snakes, int ladders):node_count_(nodes), snakes_count_(snakes),ladders_count_(ladders),
-        nodes_(nodes),edges_(MAX){
+        nodes_(nodes){
 
         }
-        void  createEdges(int n);
-        void inputSnakeLadder();
-        int dijkstra(int source);
-        void printBoard();
+         vvii  createEdges(int n);
+    void   inputSnakeLadder();
+        int dijkstra(int source,const vvii &edges);
+        void printBoard(const vvii &edges);
+       // void clear(){edges_.clear();}
     private:
         int node_count_;
         int snakes_count_;
         int ladders_count_; 
         std::vector<long int > nodes_;
-        std::vector<std::vector<std::pair<int , int>>> edges_;
         std::vector<std::pair<int,int>>snakes_;
         std::vector<std::pair<int,int>>ladders_;
 };
-void SnakeLadder::printBoard()
+void SnakeLadder::printBoard(const vvii &edges_)
 {
     for (int i = 0 ; i<node_count_;i++)
     {
@@ -31,14 +34,14 @@ void SnakeLadder::printBoard()
         for(auto it = edges_[i].begin();it != edges_[i].end();it++)
         {
 
-            std::cout<<it->first<<" ";
+            std::cout<<it->first+1<<" ";
 
         }
         std::cout<<std::endl;
     }
 
 }
-int  SnakeLadder::dijkstra(int s)
+int  SnakeLadder::dijkstra(int s,const vvii &edges_)
 {
     std::set<std::pair<int, int>> Q;
     std::vector<int> D(node_count_);
@@ -68,7 +71,7 @@ int  SnakeLadder::dijkstra(int s)
             int cost = it->second;
             if (D[v2] > D[v] + cost)
             {
-                if (D[v2] != std::numeric_limits<long>::max())
+                if (D[v2] != std::numeric_limits<int>::max())
                 {
                     Q.erase(Q.find({D[v2], v2}));
                 }
@@ -96,31 +99,43 @@ void SnakeLadder::inputSnakeLadder()
     }
 
 }
-void SnakeLadder::createEdges(int n)
+ vvii  SnakeLadder::createEdges(int n)
 {
-    int start = 1,end=0;
-    std::cout<<"nodes pushed for "<<n<<std::endl;
-    for( int i = 1;i <= node_count_; i= i + n)
+        std::vector<std::vector<std::pair<int , int>>> edges_(MAX);
+    int start = 0,end=0;
+    //std::cout<<"nodes pushed for "<<n<<std::endl;
+    for( int i = 1;i <node_count_; i= i + n)
     {
         end = start + n;
+        start = end;
+        if(end + 1 > node_count_)
+        {
+            end = node_count_ - 1;
+        }
+
         edges_[i-1].push_back({end ,1});
-        std::cout<<start<<" "<<end<<" "<<std::endl;
+      //  std::cout<<start<<" "<<end<<" "<<std::endl;
     }
 
     for(auto &s:snakes_)
     {
         int snake_mouth = s.first;
         int snake_tail = s.second;
-        edges_[snake_mouth - 1].at(0).first = snake_tail;
+        if( edges_[snake_mouth - 1].size())
+        {
+        edges_[snake_mouth - 1].at(0).first = snake_tail - 1;
         edges_[snake_mouth -1].at(0).second = 0;
-    }
+    }}
     for(auto &l:ladders_)
     {
         int ladder_start= l.first;
         int ladder_end = l.second;
-        edges_[ladder_start - 1].push_back({ladder_end,1});
-    }
-
+       if(edges_[ladder_start - 1].size())
+       {
+       edges_[ladder_start - 1].push_back({ladder_end - 1,1});
+    }}
+//printBoard(edges_);
+    return edges_;
 }
 
 int main()
@@ -134,19 +149,23 @@ int main()
         sl.inputSnakeLadder();
         std::set<std::pair<int,int>> edge_count;
         int min_count = std::numeric_limits<int>::max();
-        for (int i = 1;i<=6;i++)
+        for (int i = 1;i<=1;i++)
         {
-            sl.createEdges(i);
-            sl.printBoard();
-                /*
-                   int  num =  sl.dijkstra(0);
+         //   sl.clear();
+         const vvii edges =  sl.createEdges(5);
+            std::cout<<"*******************"<<std::endl;
+            sl.printBoard(edges);
+                
+
+                   int  num =  sl.dijkstra(0,edges);
                    if(min_count >= num)
                    {
                    min_count = num;
+                   std::cout<<"cost:"<<min_count<<std::endl;
                    }
 
                    edge_count.insert({num,i});
-                   */
+                   
         }
         /*
 
