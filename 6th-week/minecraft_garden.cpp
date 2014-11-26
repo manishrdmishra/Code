@@ -1,6 +1,7 @@
 #include<iostream>
 #include<algorithm>
 #include<queue>
+#include<cmath>
 using namespace std;
 
 const int MAX = 10;
@@ -71,7 +72,7 @@ std::pair<int,int> find_neighbour(int garden[][N],std::pair<int,int>tile,int num
             break;
     }
 
-    if( no_neighbour || garden[n.first][n.second] == '-')
+    if( no_neighbour || garden[n.first][n.second] == MAX)
     {
 
         n.first = -1;
@@ -108,13 +109,14 @@ void traverse_tiles(int garden[][N] ,bool visited[][N],std::pair<int,int>s )
         {
 
             neighbour =  find_neighbour(garden,tile,i);
-
-            if(visited[neighbour.first][neighbour.second]== true)
+            int x = neighbour.first;
+            int y = neighbour.second;
+            if((visited[x][y]== true)||  (x == -1 && y == -1))
             {
-
                 continue;
+
             }
-            if( garden[tile.first][tile.second] >= garden[neighbour.first][neighbour.second] && visited[tile.first][tile.second])
+            if( garden[tile.first][tile.second] >= garden[neighbour.first][neighbour.second] )
             {
 
                 visited[neighbour.first][neighbour.second] = true;
@@ -136,12 +138,53 @@ bool is_valid(bool visited[][N], std::vector<std::pair<int, int> > plants)
 
         if( visited[it->first][it->second] != true)
         {
+            if(debug)
+                cout<<"water is not reachable at"<<it->first<<it->second<<endl;
 
             return false;
         }
-        return true;
     }
 
+    return true;
+
+}
+void printGarden(int garden[][N])
+{
+    cout<<"*** garden ***"<<endl;
+    for ( int i = 0 ; i< ROWS;i++)
+    {
+        for ( int j = 0;j<COLS; j++)
+        {
+            if(garden[i][j]== 47)
+                cout<<"_";
+            else
+            {
+                cout<<garden[i][j]<<" ";
+            }
+
+
+        }
+
+        cout<<endl;
+    }
+
+}
+void printvisited(bool garden[][N])
+{
+for ( int i = 0 ; i< ROWS;i++)
+    {
+        for ( int j = 0;j<COLS; j++)
+        {
+            if(garden[i][j])
+                cout<<"1";
+            else
+                cout<<"0";
+
+
+        }
+
+        cout<<endl;
+    }
 
 }
 int main ()
@@ -154,13 +197,14 @@ int main ()
         int garden[N][N];
         std::pair<int,int> s;
         int h,w;
-        long int count = 0;
+        long int count = 1;
         bool visited[N][N];
         std::vector<std::pair<int, int> > plants;
         vector<std::pair<int, int>  > tiles;
+        vector <int> range;
         cin>>h>>w;
         if(debug)
-            cout<<h<<w;
+            cout<<"h:w "<<h<<w<<endl;
         char ch;
         for(int j=0;j<ROWS;j++)
         {
@@ -168,7 +212,7 @@ int main ()
             {
 
                 cin>>ch;
-                if(ch == '-')
+                if(ch == '_')
                 {
                     garden[j][k] = MAX;
                 }
@@ -195,41 +239,82 @@ int main ()
 
             }
         }
-        vector <int> range;
-        for( int j = 0;j<h;j++)
-        {
-            range.push_back(j);
-        }
+        printGarden(garden);
+        cout<<"plants locations"<<endl;
+         for( int j = 0;j<plants.size();j++)
+           {
+               cout<<plants[j].first<<"  "<<plants[j].second<<endl;
+           }
 
         // produce the list and check for valid configuration
-        do {
+        int bits = std::log(h);
+        cout<<"bits req:"<<bits;
+
+        int v = h; // 32-bit word to find the log base 2 of
+        int r = 0; // r will be lg(v)
+
+        while ( v != 0) // unroll for more speed...
+        {
+            r++;
+            v = v>>1;
+        }
+        cout<<"total bits req:"<<r;
+        int total_bits = tiles.size() * r; 
+        int max = pow(2,total_bits);
+        for(int l = 0 ;l< max; l++)
+        {
+            int z = l;
             for(int j =0;j<tiles.size();j++)
             {
 
                 int x = tiles[j].first;
                 int y = tiles[j].second;
-                garden[x][y] = range[j];
+                switch(r)
+                {
+                    case 1:
+
+
+                        garden[x][y] = z & 0x01;
+                        z = z>>1;
+                        break;
+                    case 2:
+                        garden[x][y] = z & 0x03;
+                        z = z>>2;
+                        break;
+                    case 3:
+                        garden[x][y] = z & 0x07;
+                        z = z>>3;
+                        break;
+                    default:
+                        break;
+
+                }
                 if(debug)
                 {
 
-                    cout<<" x : y : value"<<x <<" "<<y<<" "<<range[j]<<endl;
+                    // cout<<" x : y : value"<<x <<" "<<y<<" "<<garden[x][y]<<endl;
                 }
+
                 //cout<<myints[i]<<" ";
                 //count++;
             }
+            printGarden(garden);
 
             traverse_tiles( garden ,visited,s );
-
-            if(is_valid(visited,plants))
+printvisited(visited);
+bool valid = is_valid(visited,plants);
+            if(valid)
 
             {
+                if( debug)
+                    cout<<"found a valid configuration"<<endl;
 
                 count++;
             }
 
-        } while ( std::next_permutation(range.begin(),range.end()) );
+        } 
 
-        cout<<"Case #"<<i<<": "<<count;
+        cout<<"Case #"<<i<<": "<<count<<endl;
     }
     return 0;
 }

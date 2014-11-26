@@ -3,7 +3,7 @@
 #include<limits>
 using namespace std;
 const long long   MAX = 10000000;
-const int debug = 1;
+const int debug = 0;
 class Loan
 {
     public:
@@ -16,9 +16,9 @@ class Loan
 
 
         }
-        double  max_loan_paid(double min, double max);
-        double max_integral_rate(double min, double  max);
-        double min_integral_monthly_payment(double min,double max);
+        long long max_loan_paid(double min, double max);
+        long long max_integral_rate(double min, double max);
+        long long min_integral_monthly_payment(double min,double max);
         double outstanding_amount(double l,double r , double p, int y);
     private:
         double l_;
@@ -26,19 +26,22 @@ class Loan
         int r_;
         int y_;
 };
-double Loan::max_integral_rate(double min, double max)
+long long Loan::max_integral_rate(double min, double max)
 {
 double current_rate;
-double previous_rate=0;
+long long previous_rate=0;
     double current_outstanding = 0;
    // double previous_outstanding = 0 ;
-    while ( min < max )
+    while ( min < max - 0.1)
+    
     {
+        
         if( current_outstanding < 0)
         {
 previous_rate = current_rate;
         }
-       current_rate=floor(min + max ) / 2;
+        
+       current_rate=min+ (max - min  ) / 2;
 
         current_outstanding = outstanding_amount(l_,current_rate,p_,y_);
         /*
@@ -61,40 +64,43 @@ break;
         
         if ( current_outstanding > 0)
                 {
-                max = current_rate ;
+                max = current_rate   ;
 
                 }
                 else
                 {
-                min = current_rate  ;
+                min = current_rate   ;
                 }
-
-                }
-    if(current_outstanding > 0)
-    {
-current_rate = previous_rate;
 
     }
- 
-            return current_rate;
+
+    if(current_outstanding > 0)
+    {
+current_rate = previous_rate; 
+
+    }
+
+            return std::floor( current_rate);
      
 
 }
 
-double Loan::min_integral_monthly_payment(double min, double max)
+long long Loan::min_integral_monthly_payment(double min, double max)
 {
 double current_payment;
 double previous_payment = 0;
     double current_outstanding;
+
+
  //   double previous_outstanding = 0 ;
-    while ( min <= max  )
+    while ( min < max - 0.5 )
     {
     
         if( current_outstanding < 0)
         {
 previous_payment = current_payment;
         }
-       current_payment = floor(  (min + max ) / 2);
+       current_payment = min + ( (max - min ) / 2);
         current_outstanding = outstanding_amount(l_,r_,current_payment,y_);
 if(debug)
 {
@@ -115,7 +121,7 @@ break;
         }
         else if ( current_outstanding > 0)
                 {
-                min = current_payment   ;
+                min = current_payment    ;
 
                 }
                 else
@@ -134,19 +140,19 @@ current_payment = previous_payment;
      
 
 }
-double Loan:: max_loan_paid(double min, double max)
+long long Loan:: max_loan_paid(double min, double max)
 {
     double current_amount;
     double previous_amount = 0;
 //    double previous_outstanding = 0;
     double current_outstanding;
-    while ( min < max )
+    while ( min < max -0.5  )
     {
         if( current_outstanding < 0)
         {
 previous_amount = current_amount;
         }
-       current_amount= ceil(((min + max ) / 2));
+       current_amount= min + ((max - min ) / 2);
        
         current_outstanding = outstanding_amount(current_amount,r_,p_,y_);
         /*
@@ -216,9 +222,9 @@ int main()
         double l, r, p, y;
         cin>>l>>r>>p>>y;
         Loan loan ( l,r,p,y);
-       double l_max  =loan.max_loan_paid(1,MAX);
-double r_max =loan.max_integral_rate(0,100);
-double p_min = loan.min_integral_monthly_payment( 1, MAX);
+       long long l_max  =loan.max_loan_paid(1,MAX);
+long long r_max =loan.max_integral_rate(0,100);
+long long p_min = loan.min_integral_monthly_payment( 1, MAX);
 //    cout<<"l max :"<<l_max<<endl;
  //       cout<<"r max :"<<r_max<<endl;
 //        cout<<"p min :"<<p_min<<endl;
@@ -227,6 +233,11 @@ cout<<"Case #"<<i<<": "<<l_max;
 if( r_max == 100)
 {
 cout<<" infinity";
+
+}
+else if (r_max < 0)
+{
+cout<<" impossible";
 
 }
 else
