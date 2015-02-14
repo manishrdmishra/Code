@@ -37,22 +37,33 @@ std::pair<double, double>  cal_circumcenter( vector< std::pair< double, double> 
 
 }
 
-std::pair<double, double>  cal_orthocentre( vector< std::pair< double, double> > points)
+
+std::pair<double, double>  cal_orthocenter( vector< std::pair< double, double> > points)
 {
 
     double m1 ;
-    double c1;
+    double a1 , b1, c1;
     if( points[0].first == points[1].first)
     {
         m1 = 0;
-        c1 = points[2].second;
+        a1 = 0 ;
+        b1 = 1;
+        c1 = -points[2].second;
+
     }
     else
     {
         m1 = (points[0].second -points[1].second) / ( points[0].first-points[1].first);
+        if( m1 == 0 )
+        {
+            a1 = 1;
+            b1 = 0;
+            c1 = - points[2].first; 
+        }
+        
         c1 = points[2].second - m1 * points[2].first; 
     }
- double m2 ;
+    double m2 ;
     double c2;
     if( points[0].first == points[2].first)
     {
@@ -69,6 +80,7 @@ std::pair<double, double>  cal_orthocentre( vector< std::pair< double, double> >
     return std::pair<double , double > (x , y);
 
 }
+
 int main()
 {
     int t;
@@ -82,6 +94,12 @@ int main()
             cin>>x>>y;
             points.push_back({x, y});
         }
+        std::pair<double , double> cnt = cal_centroid( points);
+        cout<<cnt.first<<" "<<cnt.second<<"\n";
+        cnt = cal_orthocenter( points);
+        cout<<cnt.first<<" "<<cnt.second<<"\n";
+        cnt = cal_circumcenter( points);
+        cout<<cnt.first<<" "<<cnt.second<<"\n";
 
     }
     return 0;
