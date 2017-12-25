@@ -8,16 +8,11 @@
 namespace library
 {
 
-class String;
-
-    class StringIterator {
-        public:
-        StringIterator(const String& x, char* );
-    };
-
+class StringIterator;   
 class String
 {
   public:
+    using Iterator = library::StringIterator;
     //! constructors
     String(const char *x = nullptr);
     String(const String &x);
@@ -31,12 +26,21 @@ class String
     char operator[](int n) const { return string_[n]; }
     char &at(int n);
     char at(int n) const;
+    Iterator begin();
+    Iterator end();
 
     //! modifier functions
     String& operator+=(char c);
     String& operator+=(const String& x); 
     String& operator+=(const char* x);
 
+//! comparison functions
+    bool operator==(const String&) const;
+    bool operator!=(const String&) const;
+
+    //! search functions
+    Iterator find(char* x) const;
+    Iterator find(const String& x) const;
     //! convert to c string
     char *c_str() { return string_; }
     const char *c_str() const { return string_; }

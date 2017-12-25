@@ -1,6 +1,8 @@
 #include <iostream>
+#include <algorithm>
 #include <gtest/gtest.h>
 #include "String.h"
+#include "string_iterator.h"
 
 using String = library::String;
 TEST(String, constructorWithGivenChars)
@@ -30,4 +32,19 @@ TEST(String, indexedAccessMethod)
       EXPECT_EQ(str1[2], 'l');
       EXPECT_EQ(str1[3], 'l');
       EXPECT_EQ(str1[4], 'o');
+}
+
+TEST(String, Iterator)
+{
+    String str("Hello");
+    char ch[6];
+
+    int count = 0;
+    for(auto it = str.begin(); it != str.end(); ++it)
+    {
+        ch[count] = *it;
+        ++count;
+    }
+    ch[6] = '\0';
+    EXPECT_EQ(strcmp(ch, str.c_str()), 0);
 }

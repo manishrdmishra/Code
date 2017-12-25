@@ -1,4 +1,7 @@
 #include "String.h"
+#include "string_iterator.h"
+
+#include <utility>
 
 //! constructor with char pointer
 library::String::String(const char* x)
@@ -104,6 +107,28 @@ void library::String::increase_capacity_to(int n)
     delete new_str;
 }
 
+bool library::String::operator==(const String& other) const 
+{
+    return (strcmp(string_, other.string_) == 0);
+}
+
+bool library::String::operator!=(const String& other) const 
+{
+    return !(*this == other);
+}
+
+library::String::Iterator library::String::begin()
+{
+    Iterator it(*this, string_);
+    return it;
+}
+
+library::String::Iterator library::String::end()
+{
+    Iterator it(*this, nullptr);
+    return it;
+}
+
 //! free functions
 char* library::clone_string(const char* source_str)
 {
@@ -114,7 +139,7 @@ char* library::clone_string(const char* source_str)
         throw std::runtime_error("failed to allocate memory");
 
     strcpy(string, source_str);
-    string[length + 1] = 0;
+    string[length + 1] = '\0';
     return string;
 }
 std::ostream &library::operator<<(std::ostream &os, const String &x)
