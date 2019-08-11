@@ -68,7 +68,7 @@ std::vector<int> PrimsMinimumSpanningTree <T>:: calculateMSTCost(std::vector<std
             if( ( visited[it->first] == false ) && ( distance[it->first ] > ( it->second )))
             {
                 distance[it->first ] = it->second;
-               processing_queue.insert(it->first) ;
+                processing_queue.insert(it->first) ;
                 predecessor[it->first] = current_vertex;
             }
         }
@@ -125,16 +125,14 @@ cost_type MinimumSpanningTree<cost_type, MinimumSpanningTreeAlgorithm> ::calcula
     for (int i = 0; i< predecessor_graph.size(); ++i)
     {
         //std::cout<<"predecessor of "<< i  << " : " << predecessor_graph[i] << " , ";
-        for ( auto it = graph_[i].begin(); it != graph_[i].end(); ++it )
+        auto predecessor = predecessor_graph[i];
+        auto it = std::find_if(graph_[i].begin(), graph_[i].end(), [&predecessor](const auto& pair)
         {
-            if( it->first == predecessor_graph[i])
-            {
-
-                total_cost += it->second;
-        //       std::cout<<"cost : " <<it->second<< std::endl;
-                break;
-            }
+           return pair.first == predecessor;
         }
+        
+        if(it != graph_[i].end())
+            total_cost += it->second;
 
     }
     return  total_cost;
