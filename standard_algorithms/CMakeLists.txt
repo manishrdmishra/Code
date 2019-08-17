@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.10)
 project(Algorithms)
 
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++14 -fopenmp")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++17 -fopenmp")
 
 include_directories(include)
 include_directories(/usr/local/boost_1_63_0)
@@ -10,6 +10,9 @@ set(SOURCE_FILES test/main.cpp src/CountInversions.cpp
                 include/QuickSortCountComparisons.h
                 include/MinimumSpanningTree.h
                 include/split_string.h
+                include/greedy_algorithms.h
+                src/greedy_algorithms.cpp
+                test/greedy_algorithms_test.cpp
                 #test/mst_test.cpp
                 #src/CountInversionsTest.cpp 
                 #test/GraphTest.cpp

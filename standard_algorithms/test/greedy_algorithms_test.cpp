@@ -7,8 +7,8 @@
 #include <gtest/gtest.h>
 
 #include <fstream>
-#include "greedy_algorithms.h"
-#include "greedy_algorithms.cpp"
+#include "../include/greedy_algorithms.h"
+#include "../src/greedy_algorithms.cpp"
 
 TEST(ScheduleJobs,test1)
 {

@@ -4,13 +4,14 @@
 #include <gtest/gtest.h>
 #include <stdio.h>
 #include <iostream>
-#include<string>
-#include<fstream>
-#include "CountInversions.h"
+#include <string>
+#include <fstream>
+
+#include <CountInversions.h>
 
 // In this example, we test the MyString class (a simple string).
 
-/*TEST(CountInversions,sortAndCount1 ) {
+TEST(CountInversions,sortAndCount1 ) {
     CountInversions countInversions;
     int a[] = {5, 4, 1, 8, 3, 12, 15, 2};
     EXPECT_EQ(12 ,countInversions.sortAndCount(a,0,7));
@@ -50,5 +51,4 @@ long long int c = 0 ;
    // int c[5] = {2, 4, 1, 3, 5};
    // EXPECT_EQ(3,countInversions.sortAndCount(c,0,4));
 }
- */
 

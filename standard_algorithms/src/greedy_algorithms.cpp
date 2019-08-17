@@ -2,9 +2,9 @@
 // Created by manish on 01.12.16.
 //
 
-#include <greedy_algorithms.h>
-
+#include "greedy_algorithms.h"
 #include <algorithm>
+#include <numeric>
 
 
 // GreedyAlgorithm is a class which specify how to select a
@@ -28,11 +28,13 @@ long int ScheduleJobs<T>::calculateWeightedCompletionTime()
     }
     return weighted_sum;
 }
+
 template<typename T>
 void ScheduleJobs<T>:: setJobs(std::vector<std::pair<int, int>> jobs)
 {
     jobs_ = jobs;
 }
+
 template<typename T>
 std::vector<std::pair<int, int>> ScheduleJobs <T>:: getJobs()
 {

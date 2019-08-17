@@ -1,34 +1,41 @@
-//
-// Created by manish on 16.10.16.
-//
-
 #include <gtest/gtest.h>
 #include <stdio.h>
 #include <iostream>
 #include<string>
 #include<fstream>
 #include <functional>
-#include "QuickSortCountComparisons.h"
+#include "../i nclude/QuickSortCountComparisons.h"
 
-// In this example, we test the MyString class (a simple string).
 
-/*TEST(CountComparisons,sortAndCount1 )
+TEST(CountComparisons,sortAndCount1 )
 {
     QuickSortCountComparisons quickSortCountComparisons;
     int a[] = {5, 4, 1, 8, 3, 12, 15, 2};
-    //   EXPECT_EQ(13 ,quickSortCountComparisons.quickSortComparison(a,0,7));
+    EXPECT_EQ(13 ,quickSortCountComparisons.quickSortComparison(a,0,7,
+                                                                [](int* temp, int left , int right)-> int
+                                                                {
+                                                                    return left;
+                                                                }));
 }
 TEST(CountComparisons,sortAndCount2 )
 {
     QuickSortCountComparisons quickSortCountComparisons;
     int a[] = {5};
-    //   EXPECT_EQ(0 ,quickSortCountComparisons.quickSortComparison(a,0,0));
+    EXPECT_EQ(0 ,quickSortCountComparisons.quickSortComparison(a,0,0,
+                                                               [](int* temp, int left , int right)-> int
+                                                               {
+                                                                   return left;
+                                                               }));
 }
 TEST(CountComparisons,sortAndCount3 )
 {
     QuickSortCountComparisons quickSortCountComparisons;
     int a[] = {5, 4};
-//    EXPECT_EQ(1 ,quickSortCountComparisons.quickSortComparison(a,0,1));
+    EXPECT_EQ(1 ,quickSortCountComparisons.quickSortComparison(a,0,1,
+                                                               [](int* temp, int left , int right)-> int
+                                                               {
+                                                                   return left;
+                                                               }));
 }
 TEST ( CountCompraisons, sortAndCount4)
 {
@@ -104,4 +111,4 @@ TEST ( CountCompraisons, sortAndCount4)
     delete[](a);
     delete[](temp);
 }
- */
+
