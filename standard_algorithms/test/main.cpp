@@ -1,5 +1,6 @@
 #include <iostream>
 #include <gtest/gtest.h>
+#include <glog/logging.h>
 //#include "CountInversions.h"
 //#include "QuickSortCountComparisons.h"
 //#include "GraphTest.h"
@@ -12,6 +13,7 @@ int main(int argc, char* argv[]) {
     std::cout<<"number of inversion : "<< count << std::endl;
     return 0;
     */
+    google::InitGoogleLogging(argv[0]);
     printf("Running main() from main.cc\n");
     ::testing::InitGoogleTest(&argc, argv);
     return RUN_ALL_TESTS();

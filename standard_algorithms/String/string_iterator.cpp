@@ -24,8 +24,8 @@ library::StringIterator library::StringIterator::operator++(int)
         pointer_ = nullptr;
         return {string_, nullptr};
     }
-    ++pointer_;
 
+    ++pointer_;
     return {string_, prev};
 }
 

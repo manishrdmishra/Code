@@ -1,18 +1,42 @@
-//
-// Created by manish on 02.12.16.
-//
-
 #ifndef ALGORITHMS_MINIMUMSPANNINGTREE_H
 #define ALGORITHMS_MINIMUMSPANNINGTREE_H
 
 #include <vector>
 #include <set>
 
-template <typename T>
-struct PrimsMinimumSpanningTree
+/* Minimum spanning tree class , this class
+ * takes is parametrized on edge cost type and the
+ * different minimum spanning tree algorithm.
+ */
+
+template <typename cost_type, typename MinimumSpanningTreeAlgorithm>
+class MinimumSpanningTree
 {
+public:
+    MinimumSpanningTree(std::vector<std::vector<std::pair< int, cost_type>>>&  graph)
+            : graph_{graph}
+    {
+
+    }
+
+    cost_type calculateMST();
+    void printGraph();
+
+protected:
+    MinimumSpanningTreeAlgorithm mst_algorithm_;
+    std::vector<std::vector< std::pair< int, cost_type>>>  graph_;
+
+
+};
+
+template <typename T>
+class PrimsMinimumSpanningTree
+{
+public:
     std::vector<int> calculateMSTCost(std::vector<std::vector<std::pair<int, T>>> graph, int start_node = 0);
 };
+
+
 template<typename T>
 std::vector<int> PrimsMinimumSpanningTree <T>:: calculateMSTCost(std::vector<std::vector<std::pair< int, T >>> graph, int start_node )
 
@@ -38,7 +62,7 @@ std::vector<int> PrimsMinimumSpanningTree <T>:: calculateMSTCost(std::vector<std
     while( processing_queue.empty() != true)
     {
         // find the vertex with the minimum distance
-       T min_cost = std::numeric_limits<T>::max();
+        T min_cost = std::numeric_limits<T>::max();
         for ( int i = 0 ; i< distance.size(); ++i)
         {
             if(visited[i] == false && distance[i] < min_cost)
@@ -49,13 +73,8 @@ std::vector<int> PrimsMinimumSpanningTree <T>:: calculateMSTCost(std::vector<std
             }
         }
         visited[current_vertex] = true;
-       /* auto it = min_element( processing_queue.begin(), processing_queue.end(),
-                               [&](std::pair<int , T > vertex_cost_one , std::pair<int, T> vertex_cost_two){
-                                   return vertex_cost_one.second < vertex_cost_two.second;
-                               });*/
         //std::cout<<"min edge "<<current_vertex << " -> " << it->first << " : ";
 
-       // current_vertex = it->first;
         //std::cout<<"processing vertex " <<current_vertex  + 1<<std::endl;
         // remove the current vertex from processing queue
         processing_queue.erase(current_vertex);
@@ -63,47 +82,26 @@ std::vector<int> PrimsMinimumSpanningTree <T>:: calculateMSTCost(std::vector<std
         //std::cout<<"neighbour vertex : " ;
         for(auto it = graph[current_vertex].begin(); it != graph[current_vertex].end(); ++it )
         {
-         //   std::cout<<it->first + 1<<"  ";
+            //   std::cout<<it->first + 1<<"  ";
             // if this vertex has not been visited then process it
             if( ( visited[it->first] == false ) && ( distance[it->first ] > ( it->second )))
             {
                 distance[it->first ] = it->second;
-               processing_queue.insert(it->first) ;
+                processing_queue.insert(it->first) ;
                 predecessor[it->first] = current_vertex;
             }
         }
         //std::cout<<std::endl;
 
-
     }
 
     return predecessor;
 }
-template <typename cost_type, typename MinimumSpanningTreeAlgorithm>
-class MinimumSpanningTree
-{
-public:
-    MinimumSpanningTree(std::vector<std::vector<std::pair< int, cost_type>>>&  graph)
-            : graph_{graph}
-    {
-
-    }
-
-    cost_type calculateMST();
-    void printGraph();
-
-protected:
-    MinimumSpanningTreeAlgorithm mst_algorithm_;
-    std::vector<std::vector< std::pair< int, cost_type>>>  graph_;
-
-
-};
-
 
 template <typename cost_type, typename MinimumSpanningTreeAlgorithm>
 void MinimumSpanningTree<cost_type, MinimumSpanningTreeAlgorithm> ::printGraph()
 {
-   std::cout<<std::endl;
+    std::cout<<std::endl;
     for (int i = 0; i< graph_.size(); i++)
     {
         std::cout<<i<<" -> ";
@@ -131,7 +129,7 @@ cost_type MinimumSpanningTree<cost_type, MinimumSpanningTreeAlgorithm> ::calcula
             {
 
                 total_cost += it->second;
-        //       std::cout<<"cost : " <<it->second<< std::endl;
+                //       std::cout<<"cost : " <<it->second<< std::endl;
                 break;
             }
         }
@@ -140,6 +138,5 @@ cost_type MinimumSpanningTree<cost_type, MinimumSpanningTreeAlgorithm> ::calcula
     return  total_cost;
 
 }
-
 
 #endif //ALGORITHMS_MINIMUMSPANNINGTREE_H

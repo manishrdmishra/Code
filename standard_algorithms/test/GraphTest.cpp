@@ -7,7 +7,7 @@
 
 #include "Graph.h"
 
-/*TEST(Graph,RandomContraction)
+TEST(Graph,RandomContraction)
 {
     Graph graph;
     long int min_cut = std::numeric_limits<long > :: max ();
@@ -27,5 +27,3 @@
     std::cout<<"\n min cut : "<< min_cut << std::endl;
 
 }
- */
-
