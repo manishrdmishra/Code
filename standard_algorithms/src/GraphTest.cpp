@@ -5,7 +5,7 @@
 #include <limits>
 #include <gtest/gtest.h>
 
-#include "../i nclude/Graph.h"
+#include "../include/Graph.h"
 
 TEST(Graph,RandomContraction)
 {

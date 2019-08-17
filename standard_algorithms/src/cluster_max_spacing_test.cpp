@@ -7,46 +7,46 @@
 
 #include "cluster_max_spacing.hpp"
 
-// TEST(MaxSpacing,test1)
-// {
-//
-//     std::string file_name = "/home/manish/git/Documents/fifth_sem/coursera/algorithms-2/week-2/clustering1.txt";
-//     std::ifstream file(file_name);
-//     std::string line;
-//     getline(file,line);
-//     std::istringstream sstream(line);
-//     int num_of_nodes;
-//     sstream>>num_of_nodes;
-//     std::vector<int> vertices_(num_of_nodes);
-//
-//     std::iota(vertices_.begin(), vertices_.end(),1);
-//
-//     std::vector<std::pair<std::pair<int ,int >,int >> edge_cost_pairs;
-//     while(getline(file,line))
-//     {
-//         std::istringstream sstream(line);
-//         int node1, node2, cost;
-//         sstream >> node1;
-//         sstream >> node2;
-//         sstream >> cost;
-//         edge_cost_pairs.emplace_back(std::make_pair(node1,node2),cost);
-//         //LOG(INFO) <<node1<<" "<<node2<<" "<<cost;
-//     }
-//     std::sort(edge_cost_pairs.begin(),edge_cost_pairs.end(),
-//     [](auto& it1, auto& it2 )
-//     {
-//         return (it1.second < it2.second)  ;
-//     });
-//
-//
-//     // std::for_each(edge_cost_pairs.begin(), edge_cost_pairs.end(),
-//     // [](auto it) {std::cout << it.first.first << " " << it.first.second << " " <<it.second << std::endl;
-//     // } );
-// int k = 4;
-// KClusterMaxSpacing k_cluster_max_spacing;
-// auto number = k_cluster_max_spacing(vertices_,edge_cost_pairs,k);
-// std::cout << number << std::endl;
-// }
+TEST(MaxSpacing,test1)
+{
+
+    std::string file_name = "/home/manish/git/Documents/fifth_sem/coursera/algorithms-2/week-2/clustering1.txt";
+    std::ifstream file(file_name);
+    std::string line;
+    getline(file,line);
+    std::istringstream sstream(line);
+    int num_of_nodes;
+    sstream>>num_of_nodes;
+    std::vector<int> vertices_(num_of_nodes);
+
+    std::iota(vertices_.begin(), vertices_.end(),1);
+
+    std::vector<std::pair<std::pair<int ,int >,int >> edge_cost_pairs;
+    while(getline(file,line))
+    {
+        std::istringstream sstream(line);
+        int node1, node2, cost;
+        sstream >> node1;
+        sstream >> node2;
+        sstream >> cost;
+        edge_cost_pairs.emplace_back(std::make_pair(node1,node2),cost);
+        //LOG(INFO) <<node1<<" "<<node2<<" "<<cost;
+    }
+    std::sort(edge_cost_pairs.begin(),edge_cost_pairs.end(),
+    [](auto& it1, auto& it2 )
+    {
+        return (it1.second < it2.second)  ;
+    });
+
+
+    // std::for_each(edge_cost_pairs.begin(), edge_cost_pairs.end(),
+    // [](auto it) {std::cout << it.first.first << " " << it.first.second << " " <<it.second << std::endl;
+    // } );
+int k = 4;
+KClusterMaxSpacing k_cluster_max_spacing;
+auto number = k_cluster_max_spacing(vertices_,edge_cost_pairs,k);
+std::cout << number << std::endl;
+}
 
 
 TEST(MaxSpacing, hamming_distance_one_first)

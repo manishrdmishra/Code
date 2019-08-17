@@ -1,7 +1,7 @@
 #include <limits>
 #include <gtest/gtest.h>
 
-#include "../i nclude/dijkstra.h"
+#include "../include/dijkstra.h"
 
 TEST(Dijkstra,test1)
 {

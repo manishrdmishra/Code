@@ -13,7 +13,8 @@
 #include <list>
 #include <algorithm>
 #include <map>
-#include "helper_functions.h"
+
+#include "split_string.h"
 
 
 class Vertex

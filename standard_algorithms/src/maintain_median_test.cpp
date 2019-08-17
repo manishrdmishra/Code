@@ -1,7 +1,7 @@
 #include <limits>
 #include <gtest/gtest.h>
 
-#include "../i nclude/maintain_median.h"
+#include "../include/maintain_median.h"
 
 
 TEST(MaintainMedian,test1)

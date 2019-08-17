@@ -1,7 +1,7 @@
 #include <limits>
 #include <gtest/gtest.h>
 
-#include "../i nclude/SCC.h"
+#include "../include/SCC.h"
 
 TEST(StronglyConnectedComponents,test1)
 {

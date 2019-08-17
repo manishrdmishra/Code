@@ -2,7 +2,8 @@
 // Created by manish on 01.12.16.
 //
 
-#include "../i nclude/greedy_algorithms.h"
+#include <greedy_algorithms.h>
+
 #include <algorithm>
 
 

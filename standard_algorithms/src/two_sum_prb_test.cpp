@@ -1,6 +1,6 @@
 #include <limits>
 #include <gtest/gtest.h>
-#include "../i nclude/two_sum_prb.h"
+#include "../include/two_sum_prb.h"
 
 TEST(TwoSumProblem,test1)
 {
