@@ -212,15 +212,15 @@ public:
     }
 
     // Kosaraju's specifi api
-    void dfs-loop( Graph graph);
-    void dfs(int node_num);
+    //void dfs-loop( Graph graph);
+    void dfs(Graph graph, int node_num);
     long executeKosarajuSCC();
 };
 
 void Graph::dfs(Graph graph,int node_num)
 {
-    AdjacencyListBaseNode adjacency_list_base_node = graph[node_num];
-    adjacency_list_base_node.
+    //AdjacencyListBaseNode adjacency_list_base_node = graph[node_num];
+    //adjacency_list_base_node.
 }
 void Graph::printGraph()
 {
