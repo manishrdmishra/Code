@@ -30,16 +30,18 @@ int lengthOfLongestSubstring(const std::string &str)
 Given a string containing just the characters '(', ')', '{', '}', '[' and ']', determine if the input string is valid.
 */
 
+namespace
+{
+const std::unordered_map<char, char> matching_braces{{'(', ')'},
+                                                     {'[', ']'},
+                                                     {'{', '}'}};
+}
+
 bool braces_match(char top, char current)
 {
-    if (top == '(' && current == ')')
-        return true;
-
-    if (top == '[' && current == ']')
-        return true;
-
-    if (top == '{' && current == '}')
-        return true;
+    auto it = matching_braces.find(top);
+    if (it != matching_braces.end())
+        return it->second == current;
 
     return false;
 }
@@ -50,21 +52,18 @@ bool isValid(std::string const &str)
         return true;
 
     std::stack<char> parans;
-    parans.push('$');
+    const char sentinel{'$'};
+    parans.push(sentinel);
 
     for (char ch : str)
     {
         if (braces_match(parans.top(), ch))
-        {
             parans.pop();
-        }
         else
-        {
             parans.push(ch);
-        }
     }
 
-    if (parans.top() == '$')
+    if (parans.top() == sentinel)
         return true;
 
     return false;
