@@ -68,3 +68,19 @@ bool isValid(std::string const &str)
 
     return false;
 }
+
+/* Given a sorted array with possibly duplicated elements, 
+find the indices of the first and last occurrences of a target element, x. 
+if the target is not found return -1. 
+*/
+std::pair<int, int> getRange(std::vector<int> const &nums, int target)
+{
+    const auto equal_it = std::equal_range(nums.cbegin(), nums.cend(), target);
+
+    if (equal_it.first == nums.cend() || equal_it.first == equal_it.second)
+        return {-1, -1};
+
+    const auto start = std::distance(nums.cbegin(), equal_it.first);
+    const auto end = std::distance(nums.cbegin(), equal_it.second);
+    return {start, end - 1};
+}
