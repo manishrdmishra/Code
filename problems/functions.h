@@ -84,3 +84,46 @@ std::pair<int, int> getRange(std::vector<int> const &nums, int target)
     const auto end = std::distance(nums.cbegin(), equal_it.second);
     return {start, end - 1};
 }
+
+/* Given a singly-linked list, reverse the list. This can be done iteratively or recursively. 
+Example:
+Input: 4 -> 3 -> 2 -> 1 -> 0 -> NULL
+Output: 0 -> 1 -> 2 -> 3 -> 4 -> NULL
+*/
+
+struct Node
+{
+    Node(int d, Node *l)
+        : data(d), link(l) {}
+
+    int data;
+    Node *link;
+};
+
+Node* reverseRecursively(Node *head)
+{
+    if (head == nullptr || head->link == nullptr)
+    {
+        return head;
+    }
+
+    auto temp = head->link;
+    head->link = nullptr;
+    auto node = reverseRecursively(temp);
+    temp->link = head;
+
+    return node;
+}
+
+// Node* reverseIteratively(Node* head)
+// {
+//     if(head == nullptr || head->link == nullptr)
+//         return head;
+
+//     while(head->link != nullptr && head->link->link != nullptr)
+//     {
+//         auto temp1 = head->link;
+//         head->link = nullptr;
+//         head = temp1->link;
+//     }
+//}

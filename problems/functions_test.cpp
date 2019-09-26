@@ -1,5 +1,6 @@
 #include <gtest/gtest.h>
 
+#include <vector>
 #include "functions.h"
 
 TEST(lognest_substring_without_repeated_chars, empty_string)
@@ -125,6 +126,74 @@ TEST(getRange, array_without_target_which_is_greater_than_max_element_in_array)
 {
     const std::pair<int, int> expected{-1, -1};
     EXPECT_EQ(expected, getRange({3, 4, 5, 6, 8, 9, 10}, 15));
+}
+
+TEST(reverse_list_recursively, list_with_no_elements)
+{
+    auto head =  nullptr;
+
+    auto reversed= reverseRecursively(head);
+    std::vector<int> elements;
+    while (reversed != nullptr)
+    {
+        elements.push_back(reversed->data);
+        reversed = reversed->link;
+    }
+
+    EXPECT_EQ(0, elements.size());
+}
+
+TEST(reverse_list_recursively, list_with_1_elements)
+{
+    auto head = new Node(1, nullptr);
+
+    auto reversed= reverseRecursively(head);
+    std::vector<int> elements;
+    while (reversed != nullptr)
+    {
+        elements.push_back(reversed->data);
+        reversed = reversed->link;
+    }
+
+    std::vector<int> expected{1};
+    EXPECT_EQ(expected, elements);
+}
+
+TEST(reverse_list_recursively, list_with_2_elements)
+{
+    auto node1 = new Node(2, nullptr);
+    auto head = new Node(1, node1);
+
+    auto reversed= reverseRecursively(head);
+    std::vector<int> elements;
+    while (reversed != nullptr)
+    {
+        elements.push_back(reversed->data);
+        reversed = reversed->link;
+    }
+
+    std::vector<int> expected{2, 1};
+    EXPECT_EQ(expected, elements);
+}
+
+TEST(reverse_list_recursively, list_with_4_elements)
+{
+    auto node4 = new Node(4, nullptr);
+    auto node3 = new Node(3, node4);
+    auto node2 = new Node(0, node3);
+    auto node1 = new Node(2, node2);
+    auto head = new Node(1, node1);
+
+    auto reversed= reverseRecursively(head);
+    std::vector<int> elements;
+    while (reversed != nullptr)
+    {
+        elements.push_back(reversed->data);
+        reversed = reversed->link;
+    }
+
+    std::vector<int> expected{4, 3, 0, 2, 1};
+    EXPECT_EQ(expected, elements);
 }
 
 int main(int argc, char **argv)
