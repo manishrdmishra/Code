@@ -158,7 +158,7 @@ bool twoSum(std::vector<int> const &nums, int k)
     for (const auto num : nums)
     {
         const auto x = k - num;
-        auto found_it = nums_set.find(x);
+        const auto found_it = nums_set.find(x);
         if (found_it != nums_set.end())
             return true;
 
