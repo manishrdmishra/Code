@@ -130,9 +130,9 @@ TEST(getRange, array_without_target_which_is_greater_than_max_element_in_array)
 
 TEST(reverse_list_recursively, list_with_no_elements)
 {
-    auto head =  nullptr;
+    auto head = nullptr;
 
-    auto reversed= reverseRecursively(head);
+    auto reversed = reverseRecursively(head);
     std::vector<int> elements;
     while (reversed != nullptr)
     {
@@ -147,7 +147,7 @@ TEST(reverse_list_recursively, list_with_1_elements)
 {
     auto head = new Node(1, nullptr);
 
-    auto reversed= reverseRecursively(head);
+    auto reversed = reverseRecursively(head);
     std::vector<int> elements;
     while (reversed != nullptr)
     {
@@ -164,7 +164,7 @@ TEST(reverse_list_recursively, list_with_2_elements)
     auto node1 = new Node(2, nullptr);
     auto head = new Node(1, node1);
 
-    auto reversed= reverseRecursively(head);
+    auto reversed = reverseRecursively(head);
     std::vector<int> elements;
     while (reversed != nullptr)
     {
@@ -184,7 +184,7 @@ TEST(reverse_list_recursively, list_with_4_elements)
     auto node1 = new Node(2, node2);
     auto head = new Node(1, node1);
 
-    auto reversed= reverseRecursively(head);
+    auto reversed = reverseRecursively(head);
     std::vector<int> elements;
     while (reversed != nullptr)
     {
@@ -200,7 +200,7 @@ TEST(reverse_list_iteratively, list_with_1_elements)
 {
     auto head = new Node(1, nullptr);
 
-    auto reversed= reverseIteratively(head);
+    auto reversed = reverseIteratively(head);
     std::vector<int> elements;
     while (reversed != nullptr)
     {
@@ -217,7 +217,7 @@ TEST(reverse_list_iteratively, list_with_2_elements)
     auto node1 = new Node(2, nullptr);
     auto head = new Node(1, node1);
 
-    auto reversed= reverseIteratively(head);
+    auto reversed = reverseIteratively(head);
     std::vector<int> elements;
     while (reversed != nullptr)
     {
@@ -237,7 +237,7 @@ TEST(reverse_list_iteratively, list_with_4_elements)
     auto node1 = new Node(2, node2);
     auto head = new Node(1, node1);
 
-    auto reversed= reverseIteratively(head);
+    auto reversed = reverseIteratively(head);
     std::vector<int> elements;
     while (reversed != nullptr)
     {
@@ -247,6 +247,43 @@ TEST(reverse_list_iteratively, list_with_4_elements)
 
     std::vector<int> expected{4, 3, 0, 2, 1};
     EXPECT_EQ(expected, elements);
+}
+
+TEST(sort_nums_with_3_ints, list_with_7_elements)
+{
+    std::vector<int> original{3, 3, 2, 1, 3, 2, 1};
+
+    sortNums(original);
+    std::vector<int> expected{1, 1, 2, 2, 3, 3, 3};
+
+    EXPECT_EQ(expected, original);
+}
+
+TEST(sort_nums_with_3_ints, list_with_only_one_and_two)
+{
+    std::vector<int> original{1, 2, 2, 1, 1, 2, 1};
+
+    sortNums(original);
+    std::vector<int> expected{1, 1, 1, 1, 2, 2, 2};
+
+    EXPECT_EQ(expected, original);
+}
+
+TEST(sort_nums_with_3_ints, list_with_only_two_and_three)
+{
+    std::vector<int> original{3, 2, 3, 2, 2, 2, 3};
+
+    sortNums(original);
+    std::vector<int> expected{2, 2, 2, 2, 3, 3, 3};
+
+    EXPECT_EQ(expected, original);
+}
+
+TEST(sort_nums_with_3_ints, empty_list)
+{
+    std::vector<int> original;
+    sortNums(original);
+    EXPECT_EQ(0, original.size());
 }
 
 int main(int argc, char **argv)

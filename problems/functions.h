@@ -133,3 +133,16 @@ Node *reverseIteratively(Node *head)
 
     return head;
 }
+
+/*Given a list of numbers with only 3 unique numbers (1, 2, 3), sort the list in O(n) time. */
+
+void sortNums(std::vector<int> &nums)
+{
+    const size_t ones = std::count(nums.cbegin(), nums.cend(), 1);
+    const size_t twos = std::count(nums.cbegin(), nums.cend(), 2);
+    const size_t threes = std::count(nums.cbegin(), nums.cend(), 3);
+
+    std::fill(nums.begin(), nums.begin() + ones, 1);
+    std::fill(nums.begin() + ones, nums.begin() + ones + twos, 2);
+    std::fill(nums.begin() + ones + twos, nums.end(), 3);
+}
