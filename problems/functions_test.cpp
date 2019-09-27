@@ -196,6 +196,59 @@ TEST(reverse_list_recursively, list_with_4_elements)
     EXPECT_EQ(expected, elements);
 }
 
+TEST(reverse_list_iteratively, list_with_1_elements)
+{
+    auto head = new Node(1, nullptr);
+
+    auto reversed= reverseIteratively(head);
+    std::vector<int> elements;
+    while (reversed != nullptr)
+    {
+        elements.push_back(reversed->data);
+        reversed = reversed->link;
+    }
+
+    std::vector<int> expected{1};
+    EXPECT_EQ(expected, elements);
+}
+
+TEST(reverse_list_iteratively, list_with_2_elements)
+{
+    auto node1 = new Node(2, nullptr);
+    auto head = new Node(1, node1);
+
+    auto reversed= reverseIteratively(head);
+    std::vector<int> elements;
+    while (reversed != nullptr)
+    {
+        elements.push_back(reversed->data);
+        reversed = reversed->link;
+    }
+
+    std::vector<int> expected{2, 1};
+    EXPECT_EQ(expected, elements);
+}
+
+TEST(reverse_list_iteratively, list_with_4_elements)
+{
+    auto node4 = new Node(4, nullptr);
+    auto node3 = new Node(3, node4);
+    auto node2 = new Node(0, node3);
+    auto node1 = new Node(2, node2);
+    auto head = new Node(1, node1);
+
+    auto reversed= reverseIteratively(head);
+    std::vector<int> elements;
+    while (reversed != nullptr)
+    {
+        elements.push_back(reversed->data);
+        reversed = reversed->link;
+    }
+
+    std::vector<int> expected{4, 3, 0, 2, 1};
+    EXPECT_EQ(expected, elements);
+}
+
 int main(int argc, char **argv)
 {
     testing::InitGoogleTest(&argc, argv);

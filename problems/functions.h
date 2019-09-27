@@ -115,15 +115,21 @@ Node* reverseRecursively(Node *head)
     return node;
 }
 
-// Node* reverseIteratively(Node* head)
-// {
-//     if(head == nullptr || head->link == nullptr)
-//         return head;
+Node *reverseIteratively(Node *head)
+{
+    if (head == nullptr || head->link == nullptr)
+        return head;
 
-//     while(head->link != nullptr && head->link->link != nullptr)
-//     {
-//         auto temp1 = head->link;
-//         head->link = nullptr;
-//         head = temp1->link;
-//     }
-//}
+    auto temp1 = head->link;
+    head->link = nullptr;
+
+    while (temp1 != nullptr)
+    {
+        auto temp2 = temp1->link;
+        temp1->link = head;
+        head = temp1;
+        temp1 = temp2;
+    }
+
+    return head;
+}
