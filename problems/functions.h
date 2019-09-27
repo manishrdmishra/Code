@@ -2,6 +2,7 @@
 #include <algorithm>
 #include <string>
 #include <stack>
+#include <set>
 
 /* Given a string, find the length of the longest substring without repeating characters. */
 int lengthOfLongestSubstring(const std::string &str)
@@ -100,7 +101,7 @@ struct Node
     Node *link;
 };
 
-Node* reverseRecursively(Node *head)
+Node *reverseRecursively(Node *head)
 {
     if (head == nullptr || head->link == nullptr)
     {
@@ -145,4 +146,24 @@ void sortNums(std::vector<int> &nums)
     std::fill(nums.begin(), nums.begin() + ones, 1);
     std::fill(nums.begin() + ones, nums.begin() + ones + twos, 2);
     std::fill(nums.begin() + ones + twos, nums.end(), 3);
+}
+
+/* You are given a list of numbers, and a target number k. 
+Return whether or not there are two numbers in the list that add up to k. */
+
+bool twoSum(std::vector<int> const &nums, int k)
+{
+    std::set<int> nums_set;
+
+    for (const auto num : nums)
+    {
+        const auto x = k - num;
+        auto found_it = nums_set.find(x);
+        if (found_it != nums_set.end())
+            return true;
+
+        nums_set.insert(num);
+    }
+
+    return false;
 }

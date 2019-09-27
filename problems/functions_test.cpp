@@ -286,6 +286,36 @@ TEST(sort_nums_with_3_ints, empty_list)
     EXPECT_EQ(0, original.size());
 }
 
+TEST(twoSum, list_with_sum)
+{
+    std::vector<int> nums{4, 7, 1, -3, 2};
+    EXPECT_EQ(true, twoSum(nums, 5));
+}
+
+TEST(twoSum, list_without_sum)
+{
+    std::vector<int> nums{4, 7, 1, -3, 2};
+    EXPECT_EQ(false, twoSum(nums, 15));
+}
+
+TEST(twoSum, list_with_sum2)
+{
+    std::vector<int> nums{4, 7, 1, -3, 2};
+    EXPECT_EQ(true, twoSum(nums, 4));
+}
+
+TEST(twoSum, list_with_sum_of_two_elements)
+{
+    std::vector<int> nums{4, 2};
+    EXPECT_EQ(true, twoSum(nums, 6));
+}
+
+TEST(twoSum, list_without_sum_of_one_elements)
+{
+    std::vector<int> nums{4};
+    EXPECT_EQ(false, twoSum(nums, 4));
+}
+
 int main(int argc, char **argv)
 {
     testing::InitGoogleTest(&argc, argv);
