@@ -3,6 +3,7 @@
 #include <string>
 #include <stack>
 #include <set>
+#include <numeric>
 
 /* Given a string, find the length of the longest substring without repeating characters. */
 int lengthOfLongestSubstring(const std::string &str)
@@ -139,13 +140,29 @@ Node *reverseIteratively(Node *head)
 
 void sortNums(std::vector<int> &nums)
 {
-    const size_t ones = std::count(nums.cbegin(), nums.cend(), 1);
-    const size_t twos = std::count(nums.cbegin(), nums.cend(), 2);
-    const size_t threes = std::count(nums.cbegin(), nums.cend(), 3);
+    std::array<int, 3> counters{0, 0, 0};
 
-    std::fill(nums.begin(), nums.begin() + ones, 1);
-    std::fill(nums.begin() + ones, nums.begin() + ones + twos, 2);
-    std::fill(nums.begin() + ones + twos, nums.end(), 3);
+    for (const auto num : nums)
+    {
+        switch (num)
+        {
+        case 1:
+            ++counters[0];
+            break;
+        case 2:
+            ++counters[1];
+            break;
+        case 3:
+            ++counters[2];
+            break;
+        }
+    }
+
+    std::partial_sum(counters.begin(), counters.end(), counters.begin());
+
+    std::fill(nums.begin(), nums.begin() + counters[0], 1);
+    std::fill(nums.begin() + counters[0], nums.begin() + counters[1], 2);
+    std::fill(nums.begin() + counters[1], nums.end(), 3);
 }
 
 /* You are given a list of numbers, and a target number k. 
