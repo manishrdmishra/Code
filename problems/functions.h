@@ -184,3 +184,12 @@ bool twoSum(std::vector<int> const &nums, int k)
 
     return false;
 }
+
+/*Given a list of numbers, where every number shows up twice except for one number, find that one number.*/
+
+int singleNumber(std::vector<int> const &nums)
+{
+    return std::accumulate(nums.cbegin(), nums.cend(), 0, [](auto acc, auto val) {
+        return acc ^ val;
+    });
+}

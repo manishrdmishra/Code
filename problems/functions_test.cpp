@@ -316,6 +316,26 @@ TEST(twoSum, list_without_sum_of_one_elements)
     EXPECT_EQ(false, twoSum(nums, 4));
 }
 
+TEST(singleNumber, list)
+{
+    EXPECT_EQ(1, singleNumber({4, 3, 2, 4, 1, 3, 2}));
+}
+
+TEST(singleNumber, list2)
+{
+    EXPECT_EQ(4, singleNumber({2, 3, 2, 4, 1, 3, 1}));
+}
+
+TEST(singleNumber, list3)
+{
+    EXPECT_EQ(3, singleNumber({2, 3, 2}));
+}
+
+TEST(singleNumber, list_with_one_element)
+{
+    EXPECT_EQ(2, singleNumber({2}));
+}
+
 int main(int argc, char **argv)
 {
     testing::InitGoogleTest(&argc, argv);
