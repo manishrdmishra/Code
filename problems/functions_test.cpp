@@ -336,6 +336,42 @@ TEST(singleNumber, list_with_one_element)
     EXPECT_EQ(2, singleNumber({2}));
 }
 
+TEST(check, valid_list)
+{
+    std::vector<int> nums{13, 4, 7};
+    EXPECT_EQ(true, check(nums));
+}
+
+TEST(check, invalid_list)
+{
+    std::vector<int> nums{13, 4, 1};
+    EXPECT_EQ(false, check(nums));
+}
+
+TEST(check, invalid_list_with_two_out_of_order_elements)
+{
+    std::vector<int> nums{4, 5, 7, 3, 3, 7};
+    EXPECT_EQ(false, check(nums));
+}
+
+TEST(check, valid_list_with_only_one_type_of_elements)
+{
+    std::vector<int> nums{4, 4, 4};
+    EXPECT_EQ(true, check(nums));
+}
+
+TEST(check, valid_list_with_repeated_elements_in_non_decreasing_order)
+{
+    std::vector<int> nums{4, 4, 5, 5, 8};
+    EXPECT_EQ(true, check(nums));
+}
+
+TEST(check, valid_list_with_two_types_of_elements_one_repeated)
+{
+    std::vector<int> nums{5, 4, 4, 4};
+    EXPECT_EQ(true, check(nums));
+}
+
 int main(int argc, char **argv)
 {
     testing::InitGoogleTest(&argc, argv);

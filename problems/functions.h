@@ -5,6 +5,8 @@
 #include <set>
 #include <numeric>
 
+#include <iostream>
+
 /* Given a string, find the length of the longest substring without repeating characters. */
 int lengthOfLongestSubstring(const std::string &str)
 {
@@ -189,7 +191,51 @@ bool twoSum(std::vector<int> const &nums, int k)
 
 int singleNumber(std::vector<int> const &nums)
 {
-    return std::accumulate(nums.cbegin(), nums.cend(), 0, [](auto acc, auto val) {
+    return std::accumulate(nums.begin(), nums.end(), 0, [](auto acc, auto val) {
         return acc ^ val;
     });
+}
+
+/*You are given an array of integers in an arbitrary order. Return whether or not it is possible to make the array non-decreasing by modifying at most 1 element to any value.
+
+We define an array is non-decreasing if array[i] <= array[i + 1] holds for every i (1 <= i < n).
+
+Example:
+
+[13, 4, 7] should return true, since we can modify 13 to any value 4 or less, to make it non-decreasing.
+
+[13, 4, 1] however, should return false, since there is no way to modify just one element to make the array non-decreasing.
+*/
+
+bool check(std::vector<int> &nums)
+{
+    size_t swapped_count = 0;
+    size_t loop_count = 0;
+
+    for (int i = nums.size() - 1; i > 0; --i)
+    {
+        bool swapped = false;
+        ++loop_count;
+
+        for (int j = 0; j < i; ++j)
+        {
+            if (nums[j] > nums[j + 1])
+            {
+                std::swap(nums[j], nums[j + 1]);
+                swapped = true;
+            }
+        }
+
+        if (swapped)
+        {
+            ++swapped_count;
+        }
+
+        if (loop_count >= 2) // run the loop two times
+        {
+            return swapped_count < loop_count;
+        }
+    }
+
+    return true;
 }
