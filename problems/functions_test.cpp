@@ -372,6 +372,88 @@ TEST(check, valid_list_with_two_types_of_elements_one_repeated)
     EXPECT_EQ(true, check(nums));
 }
 
+TEST(invert_tree, tree1)
+{
+    auto root = new TreeNode(1, nullptr, nullptr);
+    root->left = new TreeNode(5, nullptr, nullptr);
+    root->right = new TreeNode(20, nullptr, nullptr);
+
+    root->left->left = new TreeNode(8, nullptr, nullptr);
+    root->left->right = new TreeNode(10, nullptr, nullptr);
+
+    root->right->left = new TreeNode(15, nullptr, nullptr);
+
+    invert(root);
+
+    std::vector<int> expected{1, 20, 15, 5, 10, 8};
+    std::vector<int> actual;
+    preorder(root, actual);
+
+    EXPECT_EQ(expected, actual);
+}
+
+TEST(invert_tree, tree2)
+{
+    auto root = new TreeNode(1, nullptr, nullptr);
+    root->left = new TreeNode(5, nullptr, nullptr);
+    root->right = new TreeNode(20, nullptr, nullptr);
+
+    root->left->left = new TreeNode(8, nullptr, nullptr);
+    root->left->right = new TreeNode(10, nullptr, nullptr);
+
+    root->right->left = new TreeNode(15, nullptr, nullptr);
+    root->right->right = new TreeNode(18, nullptr, nullptr);
+
+    invert(root);
+
+    std::vector<int> expected{1, 20, 18, 15, 5, 10, 8};
+    std::vector<int> actual;
+    preorder(root, actual);
+
+    EXPECT_EQ(expected, actual);
+}
+
+TEST(invert_tree, tree_with_one_node)
+{
+    auto root = new TreeNode(1, nullptr, nullptr);
+
+    invert(root);
+
+    std::vector<int> expected{1};
+    std::vector<int> actual;
+    preorder(root, actual);
+
+    EXPECT_EQ(expected, actual);
+}
+
+TEST(invert_tree, tree_with_one_left_child)
+{
+    auto root = new TreeNode(1, nullptr, nullptr);
+    root->left = new TreeNode(5, nullptr, nullptr);
+
+    invert(root);
+
+    std::vector<int> expected{1, 5};
+    std::vector<int> actual;
+    preorder(root, actual);
+
+    EXPECT_EQ(expected, actual);
+}
+
+TEST(invert_tree, tree_with_one_right_child)
+{
+    auto root = new TreeNode(1, nullptr, nullptr);
+    root->right = new TreeNode(8, nullptr, nullptr);
+
+    invert(root);
+
+    std::vector<int> expected{1, 8};
+    std::vector<int> actual;
+    preorder(root, actual);
+
+    EXPECT_EQ(expected, actual);
+}
+
 int main(int argc, char **argv)
 {
     testing::InitGoogleTest(&argc, argv);

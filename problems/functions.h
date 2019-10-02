@@ -197,45 +197,62 @@ int singleNumber(std::vector<int> const &nums)
 }
 
 /*You are given an array of integers in an arbitrary order. Return whether or not it is possible to make the array non-decreasing by modifying at most 1 element to any value.
-
 We define an array is non-decreasing if array[i] <= array[i + 1] holds for every i (1 <= i < n).
-
 Example:
-
-[13, 4, 7] should return true, since we can modify 13 to any value 4 or less, to make it non-decreasing.
-
-[13, 4, 1] however, should return false, since there is no way to modify just one element to make the array non-decreasing.
+[13, 4, 7] should return true, since we can modify 13 to any value 4 or less, to make it non-decreasing. [13, 4, 1] however, should return false, since there is no way to modify just one element to make the array non-decreasing.
 */
 
-bool check(std::vector<int> &nums)
+bool bubbleSortLoop(std::vector<int>& nums)
 {
-    size_t swapped_count = 0;
-    size_t loop_count = 0;
+    bool swapped = false;
 
-    for (int i = nums.size() - 1; i > 0; --i)
+    for (int j = 0; j < nums.size() - 1; ++j)
     {
-        bool swapped = false;
-        ++loop_count;
-
-        for (int j = 0; j < i; ++j)
+        if (nums[j] > nums[j + 1])
         {
-            if (nums[j] > nums[j + 1])
-            {
-                std::swap(nums[j], nums[j + 1]);
-                swapped = true;
-            }
-        }
-
-        if (swapped)
-        {
-            ++swapped_count;
-        }
-
-        if (loop_count >= 2) // run the loop two times
-        {
-            return swapped_count < loop_count;
+            std::swap(nums[j], nums[j + 1]);
+            swapped = true;
         }
     }
 
-    return true;
+    return swapped;
+}
+
+bool check(std::vector<int> &nums)
+{
+    auto first_iter_result = bubbleSortLoop(nums);
+    auto second_iter_result = bubbleSortLoop(nums);
+
+    return !(first_iter_result && second_iter_result);
+}
+
+/*You are given the root of a binary tree. Invert the binary tree in place. That is, all left children should become right children, and all right children should become left children.*/
+
+struct TreeNode
+{
+    explicit TreeNode(int d, TreeNode *l, TreeNode *r)
+        : data(d), left(l), right(r) {}
+    int data;
+    TreeNode *left;
+    TreeNode *right;
+};
+
+void preorder(TreeNode *root, std::vector<int> &data_list)
+{
+    if (!root)
+        return;
+
+    data_list.push_back(root->data);
+    preorder(root->left, data_list);
+    preorder(root->right, data_list);
+}
+
+void invert(TreeNode *root)
+{
+    if (!root)
+        return;
+
+    std::swap(root->left, root->right);
+    invert(root->left);
+    invert(root->right);
 }
