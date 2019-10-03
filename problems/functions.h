@@ -256,3 +256,23 @@ void invert(TreeNode *root)
     invert(root->left);
     invert(root->right);
 }
+
+/*You are given a positive integer N which represents the number of steps in a staircase. You can either climb 1 or 2 steps at a time. Write a function that returns the number of unique ways to climb the stairs.*/
+int staircase(int n)
+{
+    if (n == 1 || n == 2)
+        return n;
+
+    int a = 1;
+    int b = 2;
+    int c;
+
+    for (int i = 2; i < n; ++i)
+    {
+        c = a + b;
+        a = b;
+        b = c;
+    }
+
+    return c;
+}

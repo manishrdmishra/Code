@@ -454,6 +454,16 @@ TEST(invert_tree, tree_with_one_right_child)
     EXPECT_EQ(expected, actual);
 }
 
+TEST(staircase, n_4)
+{
+    EXPECT_EQ(5, staircase(4));
+}
+
+TEST(staircase, n_5)
+{
+    EXPECT_EQ(8, staircase(5));
+}
+
 int main(int argc, char **argv)
 {
     testing::InitGoogleTest(&argc, argv);
