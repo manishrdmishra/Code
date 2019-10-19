@@ -38,3 +38,22 @@ Node *remove_duplicates(Node *head)
 
     return head;
 }
+
+Node *k_th_element_from_last(Node *head, int k)
+{
+    Node *first = head;
+    Node *second = head;
+
+    for (int i = 0; i < k; ++i)
+    {
+        first = first->link;
+    }
+
+    while (first != nullptr)
+    {
+        first = first->link;
+        second = second->link;
+    }
+
+    return second;
+}
