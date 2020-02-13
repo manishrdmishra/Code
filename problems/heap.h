@@ -10,6 +10,8 @@ int extract_min(vector<int>& nums);
 
 void decrease_key(vector<int>& nums, int index, int key);
 
+void insert(vector<int>& nums, int key);
+
 void fix_node_bubble_down(vector<int>& nums, int root_index);
 
 void fix_node_bubble_up(vector<int>& nums, int root_index);

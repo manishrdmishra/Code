@@ -24,11 +24,16 @@ int extract_min(vector<int>& nums)
     return top;
 }
 
+void insert(vector<int>& nums, int key)
+{
+    nums.push_back(key);
+    fix_node_bubble_up(nums, nums.size() - 1);
+}
+
 void decrease_key(vector<int>& nums, int index, int key)
 {
     nums[index] = key;
-    int parent = parent_index(index);
-    fix_node_bubble_up(nums, parent);
+    fix_node_bubble_up(nums, index);
 }
 
 void fix_node_bubble_down(vector<int>& nums, int root_index)
