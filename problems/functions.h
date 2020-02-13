@@ -4,8 +4,11 @@
 #include <stack>
 #include <set>
 #include <numeric>
+#include <cmath>
 
 #include <iostream>
+
+#include "linked_list.h"
 
 /* Given a string, find the length of the longest substring without repeating characters. */
 int lengthOfLongestSubstring(const std::string &str)
@@ -95,14 +98,6 @@ Input: 4 -> 3 -> 2 -> 1 -> 0 -> NULL
 Output: 0 -> 1 -> 2 -> 3 -> 4 -> NULL
 */
 
-struct Node
-{
-    Node(int d, Node *l)
-        : data(d), link(l) {}
-
-    int data;
-    Node *link;
-};
 
 Node *reverseRecursively(Node *head)
 {
@@ -275,4 +270,30 @@ int staircase(int n)
     }
 
     return c;
+}
+
+/*Given a list of numbers, find if there exists a pythagorean triplet in that list. A pythagorean triplet is 3 variables a, b, c where a^2 + b^2 = c^2*/
+
+bool findPythagoreanTriplets(const std::vector<int>& nums)
+{
+    std::vector<int> num_squares;
+    num_squares.reserve(nums.size());
+
+    std::transform(nums.cbegin(), nums.cend(), std::back_inserter(num_squares), [](auto x) { return x * x; });
+    std::sort(num_squares.begin(), num_squares.end());
+
+    for (int i = 0; i < nums.size(); ++i)
+    {
+        for (int j = i; j < nums.size(); ++j)
+        {
+            auto x = std::pow(nums[i], 2) + std::pow(nums[j], 2);
+            auto it = std::equal_range(num_squares.cbegin(), num_squares.cend(), x);
+            if (it.first != it.second && it.first != num_squares.cend())
+            {
+                return  true;
+            }
+        }
+    }
+
+    return false;
 }

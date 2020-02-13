@@ -464,6 +464,26 @@ TEST(staircase, n_5)
     EXPECT_EQ(8, staircase(5));
 }
 
+TEST(findPythagoreanTriplets, valid_list)
+{
+    EXPECT_EQ(true, findPythagoreanTriplets({3, 5, 12, 5, 13}));
+}
+
+TEST(findPythagoreanTriplets, invalid_list)
+{
+    EXPECT_EQ(false, findPythagoreanTriplets({3, 5, 14, 5, 13}));
+}
+
+TEST(findPythagoreanTriplets, invalid_list_with_two_elements)
+{
+    EXPECT_EQ(false, findPythagoreanTriplets({3, 5}));
+}
+
+TEST(findPythagoreanTriplets, valid_list_2)
+{
+    EXPECT_EQ(true, findPythagoreanTriplets({4, 1, 3, 5, 9, 10}));
+}
+
 int main(int argc, char **argv)
 {
     testing::InitGoogleTest(&argc, argv);
