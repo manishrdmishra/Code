@@ -1,6 +1,7 @@
 #include <gtest/gtest.h>
 
 #include <vector>
+#include <random>
 #include "functions.h"
 
 TEST(lognest_substring_without_repeated_chars, empty_string)
@@ -482,6 +483,37 @@ TEST(findPythagoreanTriplets, invalid_list_with_two_elements)
 TEST(findPythagoreanTriplets, valid_list_2)
 {
     EXPECT_EQ(true, findPythagoreanTriplets({4, 1, 3, 5, 9, 10}));
+}
+
+TEST(nonAdjacentSum, test_time)
+{
+    using namespace std;
+
+   vector<size_t> numbers;
+   static constexpr size_t size = 10'000'000;
+   numbers.reserve(size);
+   mt19937_64 rnd{0};
+   for (size_t i = 0; i < size; ++i) {
+      numbers.push_back(rnd());
+   }
+   cout << maxNonAdjacentSum(numbers) << endl;
+}
+
+TEST(extendedMessageIntervals, three_intervals)
+{
+    string message("heeellloooo");
+    vector<pair<int, int>> expected{{1, 3}, {4, 6}, {7, 10}};
+    auto intervals = extendedMessageIntervals(message);
+
+    EXPECT_EQ(expected, intervals);
+
+}
+TEST(stringCombinations, three_intervals)
+{
+    string message("heeellloooo");
+    auto intervals = extendedMessageIntervals(message);
+    auto combinations = extendedMessageCombinations(message, {}, 0, intervals, 0);
+    EXPECT_EQ(combinations.size(), 8);
 }
 
 int main(int argc, char **argv)

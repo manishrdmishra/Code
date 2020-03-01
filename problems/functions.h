@@ -10,6 +10,8 @@
 
 #include "linked_list.h"
 
+using namespace std;
+
 /* Given a string, find the length of the longest substring without repeating characters. */
 int lengthOfLongestSubstring(const std::string &str)
 {
@@ -296,4 +298,89 @@ bool findPythagoreanTriplets(const std::vector<int>& nums)
     }
 
     return false;
+}
+
+int maxNonAdjacentSum(std::vector<size_t> const &nums)
+{
+    size_t max_sum = 0;
+
+    size_t sum1 = 0;
+    size_t sum2 = 0;
+    size_t sum3 = 0;
+    for (int i = 0; i < nums.size(); ++i)
+    {
+        size_t temp = nums[i] + std::max(sum1, sum2);
+        sum1 = sum2;
+        sum2 = sum3;
+        sum3 = temp;
+        max_sum = std::max(max_sum, sum3);
+    }
+
+    return max_sum;
+}
+
+vector<pair<int, int>> extendedMessageIntervals(string const &str)
+{
+    vector<pair<int, int>> intervals;
+
+    for (int end = 1; end < str.size();)
+    {
+        if (str[end - 1] == str[end])
+        {
+            int start = end - 1;
+            while (end < str.size() && str[start] == str[end])
+            {
+                ++end;
+            }
+
+            int len = end - start;
+            if (len > 2)
+                intervals.push_back({start, end - 1});
+        }
+        else
+        {
+            ++end;
+        }
+    }
+
+    return intervals;
+}
+
+vector<string> extendedMessageCombinations(string const& str, string current, int index, vector<pair<int, int>>& intervals, int current_interval)
+{
+
+    vector<string> strings;
+    if(index > str.size())
+    {
+        return {current};
+    }
+
+    int next = index + 1;
+    bool overlaps = false;
+
+    if(current_interval < intervals.size())
+    {
+        auto interval = intervals[current_interval];
+        if(interval.first == index)
+        {
+            next = interval.second + 1;
+            ++current_interval;
+            overlaps = true;
+        }
+    }
+
+    string temp(current);
+    temp.push_back(str[index]);
+
+     auto first_set = extendedMessageCombinations(str, temp, next, intervals, current_interval);
+     strings.insert(strings.end(), first_set.begin(), first_set.end());
+
+    if(overlaps)
+    {
+        temp.push_back(str[index]);
+        auto second_set = extendedMessageCombinations(str, temp, next, intervals, current_interval);
+        strings.insert(strings.end(), second_set.begin(), second_set.end());
+    }
+
+    return strings;
 }
